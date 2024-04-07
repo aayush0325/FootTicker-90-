@@ -39,7 +39,7 @@ body {
     font-size: 100px;
 }
 
-.start,.stop{
+.start,.stop,.reset{
     background-color: white;
     color: black;
     border: none;
@@ -50,6 +50,6 @@ body {
     border-radius: 35px;
 }
 
-.start:active,.stop:active{
+.start:active,.stop:active,.reset:active{
     background-color: rgba(255, 255, 255, 0.637);
 }
