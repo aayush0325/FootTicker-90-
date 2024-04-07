@@ -17,8 +17,33 @@ teamAHTML.textContent = `${teamAName}`
 teamBHTML.textContent = `${teamBName}`
 //finished changing team titles
 
+//possession functionality + clock functionality
+let timeWithBallA = 0
+let timeWithBallB = 0
+let hasTheBallA = false
+let hasTheBallB = false
 
-//adding clock functionality started
+const possessionButtonA = document.querySelector('.possession-a')
+const possessionButtonB = document.querySelector('.possession-b')
+
+possessionButtonA.addEventListener('click', () => {
+    possessionButtonA.style.backgroundColor = 'green'
+    possessionButtonB.style.backgroundColor = 'white'
+    possessionButtonA.style.color = 'white'
+    possessionButtonB.style.color = 'black'
+    hasTheBallA = true
+    hasTheBallB = false
+})
+
+possessionButtonB.addEventListener('click', () => {
+    possessionButtonB.style.backgroundColor = 'green'
+    possessionButtonA.style.backgroundColor = 'white'
+    possessionButtonB.style.color = 'white'
+    possessionButtonA.style.color = 'black'
+    hasTheBallB = true
+    hasTheBallA = false
+})
+
 let canChangeValues = false
 const clock = document.getElementById('game-clock')
 const start = document.querySelector('.start')
@@ -27,9 +52,23 @@ const reset = document.querySelector('.reset')
 let minutes = 0;
 let seconds = 0;
 let timer = null
+let posessionPercentA = 50
+let possessionPercentB = 50
+
 
 gameClock = () => {
+    if(hasTheBallA){
+        timeWithBallA++;
+    }
+    if(hasTheBallB){
+        timeWithBallB++;
+    }
     seconds++;
+    posessionPercentA = (timeWithBallA*100)/(timeWithBallA+timeWithBallB)
+    possessionPercentB = (timeWithBallB*100)/(timeWithBallA+timeWithBallB)
+    posessionPercentA = Math.round(posessionPercentA)
+    possessionPercentB = 100-posessionPercentA
+    console.log(posessionPercentA,possessionPercentB)
     if(seconds === 60)
     {
         seconds = 0;
@@ -75,9 +114,19 @@ function gameClockReset(){
 reset.addEventListener('click', () => {
     gameClockReset();
     canChangeValues = false
-})
+    hasTheBallA = false
+    hasTheBallB = false
+    posessionPercentA = 50
+    possessionPercentB = 50
+    timeWithBallA = 0
+    timeWithBallB = 0
+    possessionButtonA.style.backgroundColor = 'white'
+    possessionButtonA.style.color = 'black'
+    possessionButtonB.style.backgroundColor = 'white'
+    possessionButtonB.style.color = 'black'
 
-//clock functionality finished
+})
+//clock functionality finished // posession functionality also finished
 
 //goals adding and subtracting
 const aGoalsAdd = document.querySelector('.a-plus')
@@ -91,14 +140,14 @@ let goalsByA = 0
 let goalsByB = 0
 
 aGoalsAdd.addEventListener('click', () => {
-    if(canChangeValues){
+    if(canChangeValues && hasTheBallA){
         goalsByA++;
         displayAGoals.textContent = `${goalsByA}`
     }
 })
 
 aGoalsSubtract.addEventListener('click', () => {
-    if(canChangeValues)
+    if(canChangeValues && hasTheBallA)
     {
         goalsByA--;
         displayAGoals.textContent = `${goalsByA}`
@@ -106,14 +155,14 @@ aGoalsSubtract.addEventListener('click', () => {
 })
 
 bGoalsAdd.addEventListener('click', () => {
-    if(canChangeValues){
+    if(canChangeValues && hasTheBallB){
         goalsByB++;
         displayBGoals.textContent = `${goalsByB}`
     }
 })
 
 bGoalsSubtract.addEventListener('click', () => {
-    if(canChangeValues)
+    if(canChangeValues && hasTheBallB)
     {
         goalsByB--;
         displayBGoals.textContent = `${goalsByB}`
@@ -127,3 +176,4 @@ reset.addEventListener('click', () => {
     displayAGoals.textContent = `${goalsByA}`
 })
 //goals adding and subtracting finished
+

@@ -82,6 +82,7 @@ body {
 }
 .team-a-goals,.team-b-goals{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
@@ -101,4 +102,21 @@ body {
 }
 .number-of-goals-a h1, .number-of-goals-b h1{
     margin-bottom: 20px;
+}
+
+
+
+.possession-a,.possession-b{
+    background-color: white;
+    color: black;
+    border: none;
+    font-size: 25px;
+    padding: 5px 15px 5px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-top: 10%;
+}
+
+.possession-a:active,.possession-b:active{
+    background-color: rgba(161, 161, 161, 0.637);
 }
