@@ -48,6 +48,7 @@ body {
     cursor: pointer;
     padding: 10px 30px;
     border-radius: 35px;
+    margin: 5px 5px 5px 5px;
 }
 
 .start:active,.stop:active,.reset:active{
