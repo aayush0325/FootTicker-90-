@@ -8,8 +8,17 @@ matchLength = parseInt(matchLength)
 let teamAPlayers = localStorage.getItem('teamAPlayers')
 let teamBPlayers = localStorage.getItem('teamBPlayers')
 
-//adding clock functionality started
 
+
+//changing team titles
+teamAHTML = document.querySelector('.team-name-a h1')
+teamBHTML = document.querySelector('.team-name-b h1')
+teamAHTML.textContent = `${teamAName}`
+teamBHTML.textContent = `${teamBName}`
+//finished changing team titles
+
+
+//adding clock functionality started
 let canChangeValues = false
 const clock = document.getElementById('game-clock')
 const start = document.querySelector('.start')
@@ -70,7 +79,7 @@ reset.addEventListener('click', () => {
 
 //clock functionality finished
 
-
+//goals adding and subtracting
 const aGoalsAdd = document.querySelector('.a-plus')
 const aGoalsSubtract = document.querySelector('.a-minus')
 const bGoalsAdd = document.querySelector('.b-plus')
@@ -117,4 +126,4 @@ reset.addEventListener('click', () => {
     goalsByA = 0;
     displayAGoals.textContent = `${goalsByA}`
 })
-
+//goals adding and subtracting finished

@@ -24,7 +24,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    max-width: 80%; /* Limit width of overlay */
+    width: 80%;
 }
 
 .overlay h1 {
@@ -34,6 +34,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 10%;
 }
 
 .clock{
@@ -75,11 +76,15 @@ body {
     flex-direction: column; /* Stack text content vertically */
     justify-content: center; /* Center text content vertically */
     align-items: center; /* Center text content horizontally */
-    margin-top: 20%;
+    /* margin-top: 20%; */
     font-size: xx-large;
     cursor: pointer;
 }
-
+.team-a-goals,.team-b-goals{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .a-plus,.a-minus,.b-plus,.b-minus{
     background-color: white;
     border: solid;
