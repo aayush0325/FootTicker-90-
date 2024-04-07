@@ -1,7 +1,7 @@
-let teamAName = localStorage.getItem('teamAName') || '';
-let teamBName = localStorage.getItem('teamBName') || '';
-let teamSize = localStorage.getItem('teamSize') || '';
-let matchLength = localStorage.getItem('matchLength') || '';
+let teamAName = localStorage.getItem('teamAName');
+let teamBName = localStorage.getItem('teamBName');
+let teamSize = localStorage.getItem('teamSize');
+let matchLength = localStorage.getItem('matchLength');
 
 
 teamOneName = document.querySelector('.first-team')
