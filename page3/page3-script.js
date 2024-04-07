@@ -13,8 +13,8 @@ teamTwoName.textContent = teamBName
 teamSize = parseInt(teamSize)
 matchLength = parseInt(matchLength)
 
-teamAPlayers = []
-teamBPlayers = []
+teamAPlayers = new Array(teamSize).fill('')
+teamBPlayers = new Array(teamSize).fill('')
 
 
 // Function to create input elements and handle player name collection
@@ -28,10 +28,6 @@ function createPlayerInputs(teamSize, teamPlayersArray) {
         input.style.padding = '5px 10px 5px 10px'
         input.setAttribute('type', 'text');
         input.setAttribute('placeholder', 'Enter player name');
-        input.addEventListener('input', function() {
-            // Add the entered player name to the respective team players array
-            teamPlayersArray[i] = this.value;
-        });
         const teamDivClass = (teamPlayersArray === teamAPlayers) ? 'team1' : 'team2';
         const teamContainer = document.querySelector(`.${teamDivClass}`);
         teamContainer.appendChild(input);
@@ -43,5 +39,29 @@ createPlayerInputs(teamSize, teamAPlayers);
 
 // Create input elements for Team B
 createPlayerInputs(teamSize, teamBPlayers);
+
+
+
+const inputA = document.querySelectorAll('.team1 input')
+for(let i = 0 ; i < teamSize ; i++)
+{
+    inputA[i].addEventListener('input', () => {
+        let playerAName = inputA[i].value.trim();
+        teamAPlayers[i] = playerAName;
+        localStorage.setItem('teamAPlayers',teamAPlayers)
+    });
+}
+
+const inputB = document.querySelectorAll('.team2 input')
+for(let i = 0 ; i < teamSize ; i++)
+{
+    inputB[i].addEventListener('input', () => {
+        let playerAName = inputB[i].value.trim();
+        teamBPlayers[i] = playerAName;
+        localStorage.setItem('teamBPlayers',teamBPlayers)
+    });
+}
+
+
 
 
