@@ -30,9 +30,16 @@ body {
 .overlay h1 {
     margin-top: 0; /* Remove default margin for h1 */
 }
+.topbar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .clock{
+    background-color: rgba(0, 255, 21, 0.219);
     margin-top: 5%;
+    border-radius: 30px;
 }
 
 .clock h1{
@@ -53,4 +60,40 @@ body {
 
 .start:active,.stop:active,.reset:active{
     background-color: rgba(255, 255, 255, 0.637);
+}
+
+.number-of-goals-a,
+.number-of-goals-b {
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    color: black;
+    height: 200px;
+    width: 200px;
+    border-radius: 50px;
+    display: flex; /* Ensure text content is centered */
+    flex-direction: column; /* Stack text content vertically */
+    justify-content: center; /* Center text content vertically */
+    align-items: center; /* Center text content horizontally */
+    margin-top: 20%;
+    font-size: xx-large;
+    cursor: pointer;
+}
+
+.a-plus,.a-minus,.b-plus,.b-minus{
+    background-color: white;
+    border: solid;
+    border-color: black;
+    font-size: 60px;
+    width: 60px;
+    border-width: 2px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.a-plus:active,.a-minus:active,.b-plus:active,.b-minus:active{
+    background-color: rgba(161, 161, 161, 0.637);
+}
+.number-of-goals-a h1, .number-of-goals-b h1{
+    margin-bottom: 20px;
 }
