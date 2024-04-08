@@ -7,7 +7,8 @@ teamSize = parseInt(teamSize)
 matchLength = parseInt(matchLength)
 let teamAPlayers = localStorage.getItem('teamAPlayers')
 let teamBPlayers = localStorage.getItem('teamBPlayers')
-
+teamAPlayersArray = teamAPlayers.split(",")
+teamBPlayersArray = teamBPlayers.split(",")
 //changing team titles
 teamAHTML = document.querySelector('.team-name-a h1')
 teamBHTML = document.querySelector('.team-name-b h1')
@@ -68,7 +69,6 @@ gameClock = () => {
     possessionPercentB = 100-possessionPercentA
     localStorage.setItem('possessionPercentA',possessionPercentA)
     localStorage.setItem('possessionPercentB',possessionPercentB)
-    console.log(possessionPercentA,possessionPercentB)
     if(possessionPercentA === NaN){
         possessionPercentA = 50;
     }
@@ -192,3 +192,37 @@ reset.addEventListener('click', () => {
 })
 //goals adding and subtracting finished
 
+
+// Function to create a pop-up window with player buttons
+function createPlayerSelectionPopup(players) {
+    const popup = document.createElement('div');
+    const heading = document.createElement('h1');
+    heading.style.color = 'white'
+    heading.textContent = "Choose the goal scorer";
+    popup.appendChild(heading);
+    popup.classList.add('player-popup');
+    for(let i = 0 ; i < players.length ; i++)
+    {
+        const button = document.createElement('button');
+        button.textContent = players[i];
+        button.classList.add('player-button');
+        button.addEventListener('click', () => {
+            console.log(`Selected player: ${players[i]}`);
+            popup.remove();
+        });
+        popup.appendChild(button);
+    }
+    document.body.appendChild(popup);
+}
+
+aGoalsAdd.addEventListener('click', () => {
+    if (canChangeValues && hasTheBallA) {
+        createPlayerSelectionPopup(teamAPlayersArray);
+    }
+});
+
+bGoalsAdd.addEventListener('click', () => {
+    if (canChangeValues && hasTheBallB) {
+        createPlayerSelectionPopup(teamBPlayersArray);
+    }
+});
