@@ -56,6 +56,14 @@ let seconds = 0;
 let timer = null
 
 gameClock = () => {
+    if(goalsByA<0){
+        goalsByA = 0
+        displayAGoals.textContent = `${goalsByA}`
+    }
+    if(goalsByB<0){
+        goalsByB = 0;
+        displayBGoals.textContent = `${goalsByB}`
+    }
     if(hasTheBallA){
         timeWithBallA++;
     }
