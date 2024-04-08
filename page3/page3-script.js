@@ -13,11 +13,9 @@ teamTwoName.textContent = teamBName
 teamSize = parseInt(teamSize)
 matchLength = parseInt(matchLength)
 
-for(let i = 0 ; i < teamSize ; i++)
-{
-    teamAPlayers.push('')
-    teamBPlayers.push('')
-}
+teamAPlayers = new Array(teamSize).fill('')
+teamBPlayers = new Array(teamSize).fill('')
+
 
 // Function to create input elements and handle player name collection
 function createPlayerInputs(teamSize, teamPlayersArray) {
@@ -50,9 +48,8 @@ for(let i = 0 ; i < teamSize ; i++)
     inputA[i].addEventListener('input', () => {
         let playerAName = inputA[i].value.trim();
         teamAPlayers[i] = playerAName;
-
+        localStorage.setItem('teamAPlayers',teamAPlayers)
     });
-
 }
 
 const inputB = document.querySelectorAll('.team2 input')
@@ -61,12 +58,11 @@ for(let i = 0 ; i < teamSize ; i++)
     inputB[i].addEventListener('input', () => {
         let playerAName = inputB[i].value.trim();
         teamBPlayers[i] = playerAName;
+        localStorage.setItem('teamBPlayers',teamBPlayers)
 
     });
-
 }
 
-localStorage.setItem('teamAPlayers',teamAPlayers)
-localStorage.setItem('teamBPlayers',teamBPlayers)
+
 
 
