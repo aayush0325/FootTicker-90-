@@ -67,6 +67,10 @@ gameClock = () => {
     possessionPercentB = (timeWithBallB*100)/(timeWithBallA+timeWithBallB)
     possessionPercentA = Math.round(possessionPercentA)
     possessionPercentB = 100-possessionPercentA
+    if(possessionPercentB === 0)
+    {
+        possessionPercentB = ''
+    }
     localStorage.setItem('possessionPercentA',possessionPercentA)
     localStorage.setItem('possessionPercentB',possessionPercentB)
     if(possessionPercentA === NaN){
@@ -75,8 +79,8 @@ gameClock = () => {
     if(possessionPercentB === NaN){
         possessionPercentB = 50;
     }
-    displayPossessionPercentA.textContent = `${possessionPercentA}%`
-    displayPossessionPercentB.textContent = `${possessionPercentB}%`
+    displayPossessionPercentA.textContent = `${possessionPercentA}`
+    displayPossessionPercentB.textContent = `${possessionPercentB}`
     let widthOfA = 6*possessionPercentA
     let widthOfB = 6*possessionPercentB
     displayPossessionPercentA.style.width = `${widthOfA}` + 'px'
@@ -100,8 +104,12 @@ function gameClockStart(){
 }
 
 start.addEventListener('click', () => {
-    gameClockStart();
-    canChangeValues = true
+    if(hasTheBallA || hasTheBallB)
+    {
+        gameClockStart();
+        canChangeValues = true
+    }
+    
 })
 
 function gameClockStop(){
@@ -138,8 +146,8 @@ reset.addEventListener('click', () => {
     possessionButtonB.style.color = 'black'
     displayPossessionPercentA.style.width = '300px'
     displayPossessionPercentB.style.width = '300px'
-    displayPossessionPercentA.textContent = `50%`
-    displayPossessionPercentB.textContent = `50%`
+    displayPossessionPercentA.textContent = `50`
+    displayPossessionPercentB.textContent = `50`
     goalScorersA = []
     timesGoalScoredA = []
     goalScorersB = []
