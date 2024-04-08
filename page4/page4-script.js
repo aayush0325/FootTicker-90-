@@ -22,6 +22,13 @@ let timeWithBallA = 0
 let timeWithBallB = 0
 let hasTheBallA = false
 let hasTheBallB = false
+let possessionPercentA = 50
+let possessionPercentB = 50
+const displayPossessionPercentA = document.querySelector('.possession-a-percent h5')
+const displayPossessionPercentB = document.querySelector('.possession-b-percent h5')
+
+
+
 
 const possessionButtonA = document.querySelector('.possession-a')
 const possessionButtonB = document.querySelector('.possession-b')
@@ -52,9 +59,6 @@ const reset = document.querySelector('.reset')
 let minutes = 0;
 let seconds = 0;
 let timer = null
-let posessionPercentA = 50
-let possessionPercentB = 50
-
 
 gameClock = () => {
     if(hasTheBallA){
@@ -64,11 +68,25 @@ gameClock = () => {
         timeWithBallB++;
     }
     seconds++;
-    posessionPercentA = (timeWithBallA*100)/(timeWithBallA+timeWithBallB)
+    possessionPercentA = (timeWithBallA*100)/(timeWithBallA+timeWithBallB)
     possessionPercentB = (timeWithBallB*100)/(timeWithBallA+timeWithBallB)
-    posessionPercentA = Math.round(posessionPercentA)
-    possessionPercentB = 100-posessionPercentA
-    console.log(posessionPercentA,possessionPercentB)
+    possessionPercentA = Math.round(possessionPercentA)
+    possessionPercentB = 100-possessionPercentA
+    localStorage.setItem('possessionPercentA',possessionPercentA)
+    localStorage.setItem('possessionPercentB',possessionPercentB)
+    console.log(possessionPercentA,possessionPercentB)
+    if(possessionPercentA === NaN){
+        possessionPercentA = 50;
+    }
+    if(possessionPercentB === NaN){
+        possessionPercentB = 50;
+    }
+    displayPossessionPercentA.textContent = `${possessionPercentA}%`
+    displayPossessionPercentB.textContent = `${possessionPercentB}%`
+    let widthOfA = 6*possessionPercentA
+    let widthOfB = 6*possessionPercentB
+    displayPossessionPercentA.style.width = `${widthOfA}` + 'px'
+    displayPossessionPercentB.style.width = `${widthOfB}` + 'px'
     if(seconds === 60)
     {
         seconds = 0;
@@ -96,7 +114,7 @@ function gameClockStop(){
     clearInterval(timer)
 }
 
- stop.addEventListener('click', () => {
+stop.addEventListener('click', () => {
     gameClockStop()
     canChangeValues = false
 })
@@ -116,7 +134,7 @@ reset.addEventListener('click', () => {
     canChangeValues = false
     hasTheBallA = false
     hasTheBallB = false
-    posessionPercentA = 50
+    possessionPercentA = 50
     possessionPercentB = 50
     timeWithBallA = 0
     timeWithBallB = 0
@@ -124,6 +142,11 @@ reset.addEventListener('click', () => {
     possessionButtonA.style.color = 'black'
     possessionButtonB.style.backgroundColor = 'white'
     possessionButtonB.style.color = 'black'
+    displayPossessionPercentA.style.width = '300px'
+    displayPossessionPercentB.style.width = '300px'
+    displayPossessionPercentA.textContent = `50%`
+    displayPossessionPercentB.textContent = `50%`
+
 
 })
 //clock functionality finished // posession functionality also finished
