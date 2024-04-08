@@ -8,8 +8,6 @@ matchLength = parseInt(matchLength)
 let teamAPlayers = localStorage.getItem('teamAPlayers')
 let teamBPlayers = localStorage.getItem('teamBPlayers')
 
-
-
 //changing team titles
 teamAHTML = document.querySelector('.team-name-a h1')
 teamBHTML = document.querySelector('.team-name-b h1')
@@ -26,10 +24,6 @@ let possessionPercentA = 50
 let possessionPercentB = 50
 const displayPossessionPercentA = document.querySelector('.possession-a-percent h5')
 const displayPossessionPercentB = document.querySelector('.possession-b-percent h5')
-
-
-
-
 const possessionButtonA = document.querySelector('.possession-a')
 const possessionButtonB = document.querySelector('.possession-b')
 
@@ -146,8 +140,6 @@ reset.addEventListener('click', () => {
     displayPossessionPercentB.style.width = '300px'
     displayPossessionPercentA.textContent = `50%`
     displayPossessionPercentB.textContent = `50%`
-
-
 })
 //clock functionality finished // posession functionality also finished
 
@@ -158,7 +150,6 @@ const bGoalsAdd = document.querySelector('.b-plus')
 const bGoalsSubtract = document.querySelector('.b-minus')
 const displayAGoals = document.querySelector('.number-of-goals-a h1')
 const displayBGoals = document.querySelector('.number-of-goals-b h1')
-
 let goalsByA = 0
 let goalsByB = 0
 
@@ -167,6 +158,7 @@ aGoalsAdd.addEventListener('click', () => {
         goalsByA++;
         displayAGoals.textContent = `${goalsByA}`
     }
+
 })
 
 aGoalsSubtract.addEventListener('click', () => {

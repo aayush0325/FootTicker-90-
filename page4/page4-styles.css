@@ -24,7 +24,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 80%;
+    width: 100%;
 }
 
 .overlay h1 {
@@ -80,6 +80,7 @@ body {
     font-size: xx-large;
     cursor: pointer;
 }
+
 .team-a-goals,.team-b-goals{
     display: flex;
     flex-direction: column;
@@ -120,7 +121,6 @@ body {
 .possession-a:active,.possession-b:active{
     background-color: rgba(161, 161, 161, 0.637);
 }
-
 
 .stats{
     margin-top: 5%;
