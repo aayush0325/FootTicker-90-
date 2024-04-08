@@ -140,6 +140,11 @@ reset.addEventListener('click', () => {
     displayPossessionPercentB.style.width = '300px'
     displayPossessionPercentA.textContent = `50%`
     displayPossessionPercentB.textContent = `50%`
+    goalScorersA = []
+    timesGoalScoredA = []
+    goalScorersB = []
+    timesGoalScoredB = []
+
 })
 //clock functionality finished // posession functionality also finished
 
@@ -193,8 +198,13 @@ reset.addEventListener('click', () => {
 //goals adding and subtracting finished
 
 
+let goalScorersA = []
+let timesGoalScoredA = []
+let goalScorersB = []
+let timesGoalScoredB = []
+
 // Function to create a pop-up window with player buttons
-function createPlayerSelectionPopup(players) {
+function createPlayerSelectionPopup(players, goalScorerArr,timeArr) {
     const popup = document.createElement('div');
     const heading = document.createElement('h1');
     heading.style.color = 'white'
@@ -207,7 +217,9 @@ function createPlayerSelectionPopup(players) {
         button.textContent = players[i];
         button.classList.add('player-button');
         button.addEventListener('click', () => {
-            console.log(`Selected player: ${players[i]}`);
+            goalScorerArr.push(players[i])
+            timeArr.push(minutes+1)
+            console.log(players,goalScorerArr,timeArr)
             popup.remove();
         });
         popup.appendChild(button);
@@ -217,12 +229,12 @@ function createPlayerSelectionPopup(players) {
 
 aGoalsAdd.addEventListener('click', () => {
     if (canChangeValues && hasTheBallA) {
-        createPlayerSelectionPopup(teamAPlayersArray);
+        createPlayerSelectionPopup(teamAPlayersArray,goalScorersA,timesGoalScoredA);
     }
 });
 
 bGoalsAdd.addEventListener('click', () => {
     if (canChangeValues && hasTheBallB) {
-        createPlayerSelectionPopup(teamBPlayersArray);
+        createPlayerSelectionPopup(teamBPlayersArray,goalScorersB,timesGoalScoredB);
     }
 });

@@ -123,7 +123,7 @@ body {
 }
 
 .stats{
-    margin-top: 5%;
+    margin-top: 2.5%;
 }
 
 .possession-stats h4{
@@ -189,4 +189,31 @@ body {
 
 .player-button:hover {
     background-color: rgba(255, 255, 255, 0.3);
+}
+
+.goal-scorers{
+    display: flex;
+    justify-content: center;
+    align-items: top;
+    gap: 80%;
+    margin-top: 5%;
+}
+
+.team-a-goalscorers,.team-b-goalscorers{
+    display: flex;
+    justify-content: center;
+    align-items: top;
+
+}
+
+.team-a-goalscorers ul,.team-b-goalscorers ul{
+    list-style: none;
+    margin-left: 0px;
+    padding-left: 0px;
+
+}
+
+.team-a-goalscorers ul li,.team-b-goalscorers ul li{
+    padding: 5px 5px 5px 5px;
+    font-size: 20px;
 }
