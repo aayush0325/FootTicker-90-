@@ -25,6 +25,9 @@ body {
     justify-content: center;
     align-items: center;
     width: 100%;
+    height: 100%;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 .overlay h1 {
@@ -136,22 +139,36 @@ body {
 
 .possession-a-percent{
     flex: 1;
-    height: 5%;
+    height: 2%;
     background-color: red;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
 }
 
 .possession-a-percent h5{
     width: 300px;
+    transition: width 0.3s;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 .possession-b-percent h5{
     width: 300px;
+    transition: width 0.3s;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 .possession-b-percent{
     flex: 1;
-    height: 5%;
+    height: 2%;
     background-color: blue;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
 }
 
 
@@ -197,6 +214,7 @@ body {
     align-items: top;
     gap: 80%;
     margin-top: 5%;
+    width: 420px;
 }
 
 .team-a-goalscorers,.team-b-goalscorers{
@@ -216,4 +234,5 @@ body {
 .team-a-goalscorers ul li,.team-b-goalscorers ul li{
     padding: 5px 5px 5px 5px;
     font-size: 20px;
+    width: 200px;
 }

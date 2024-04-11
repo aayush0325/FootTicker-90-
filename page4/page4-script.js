@@ -81,16 +81,14 @@ gameClock = () => {
     }
     localStorage.setItem('possessionPercentA',possessionPercentA)
     localStorage.setItem('possessionPercentB',possessionPercentB)
-    if(possessionPercentA === NaN){
-        possessionPercentA = 50;
-    }
-    if(possessionPercentB === NaN){
-        possessionPercentB = 50;
-    }
     displayPossessionPercentA.textContent = `${possessionPercentA}`
     displayPossessionPercentB.textContent = `${possessionPercentB}`
     let widthOfA = 6*possessionPercentA
     let widthOfB = 6*possessionPercentB
+    if(possessionPercentA === 100){
+        displayPossessionPercentA.style.borderTopRightRadius = '15px'
+        displayPossessionPercentA.style.borderBottomRightRadius = '15px'
+    }
     displayPossessionPercentA.style.width = `${widthOfA}` + 'px'
     displayPossessionPercentB.style.width = `${widthOfB}` + 'px'
     if(seconds === 60)
@@ -219,24 +217,31 @@ let timesGoalScoredA = []
 let goalScorersB = []
 let timesGoalScoredB = []
 
+
+
 // Function to create a pop-up window with player buttons
-function createPlayerSelectionPopup(players, goalScorerArr,timeArr) {
+function createPlayerSelectionPopup(players, goalScorerArr, timeArr, goalScorersList) {
     const popup = document.createElement('div');
     const heading = document.createElement('h1');
     heading.style.color = 'white'
     heading.textContent = "Choose the goal scorer";
     popup.appendChild(heading);
     popup.classList.add('player-popup');
-    for(let i = 0 ; i < players.length ; i++)
-    {
+    for (let i = 0; i < players.length; i++) {
         const button = document.createElement('button');
         button.textContent = players[i];
         button.classList.add('player-button');
         button.addEventListener('click', () => {
             goalScorerArr.push(players[i])
-            timeArr.push(minutes+1)
-            console.log(players,goalScorerArr,timeArr)
+            timeArr.push(minutes + 1)
+            console.log(players, goalScorerArr, timeArr)
             popup.remove();
+
+            // Update the goal scorers list in the corresponding team
+            const displayList = goalScorersList.querySelector('ul');
+            const listItem = document.createElement('li');
+            listItem.textContent = `${players[i]} ${minutes+1}'`;
+            displayList.appendChild(listItem);
         });
         popup.appendChild(button);
     }
@@ -245,12 +250,20 @@ function createPlayerSelectionPopup(players, goalScorerArr,timeArr) {
 
 aGoalsAdd.addEventListener('click', () => {
     if (canChangeValues && hasTheBallA) {
-        createPlayerSelectionPopup(teamAPlayersArray,goalScorersA,timesGoalScoredA);
+        createPlayerSelectionPopup(teamAPlayersArray, goalScorersA, timesGoalScoredA, document.querySelector('.team-a-goalscorers'));
     }
 });
 
 bGoalsAdd.addEventListener('click', () => {
     if (canChangeValues && hasTheBallB) {
-        createPlayerSelectionPopup(teamBPlayersArray,goalScorersB,timesGoalScoredB);
+        createPlayerSelectionPopup(teamBPlayersArray, goalScorersB, timesGoalScoredB, document.querySelector('.team-b-goalscorers'));
     }
 });
+
+
+reset.addEventListener('click',() =>{
+    const liA = document.querySelector('.team-a-goalscorers ul')
+    const liB = document.querySelector('.team-b-goalscorers ul')
+    liA.innerHTML = ""
+    liB.innerHTML = ""
+})
