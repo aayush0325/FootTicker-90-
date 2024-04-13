@@ -1,4 +1,4 @@
-/* General Styles */
+
 
 body {
     margin: 0;
@@ -8,8 +8,8 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     font-family: "Poppins", sans-serif;
-    min-height: 100vh; /* Ensure body fills at least the viewport height */
-    display: flex; /* Use flexbox to center content vertically and horizontally */
+    min-height: 100vh; 
+    display: flex; 
     justify-content: center;
     align-items: center;
 }
@@ -31,7 +31,7 @@ body {
 }
 
 .overlay h1 {
-    margin-top: 0; /* Remove default margin for h1 */
+    margin-top: 0;
 }
 .topbar{
     display: flex;
@@ -75,11 +75,10 @@ body {
     height: 200px;
     width: 200px;
     border-radius: 50px;
-    display: flex; /* Ensure text content is centered */
-    flex-direction: column; /* Stack text content vertically */
-    justify-content: center; /* Center text content vertically */
-    align-items: center; /* Center text content horizontally */
-    /* margin-top: 20%; */
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
     font-size: xx-large;
     cursor: pointer;
 }
@@ -90,6 +89,7 @@ body {
     justify-content: center;
     align-items: center;
 }
+
 .a-plus,.a-minus,.b-plus,.b-minus{
     background-color: white;
     border: solid;
@@ -108,7 +108,9 @@ body {
     margin-bottom: 20px;
 }
 
-
+.possession-stats{
+    padding-bottom: 5%;
+}
 
 .possession-a,.possession-b{
     background-color: white;
@@ -235,4 +237,26 @@ body {
     padding: 5px 5px 5px 5px;
     font-size: 20px;
     width: 200px;
+}
+
+
+.shot-stats,.fouls-stats,.tackles-stats,.injury-stats,.corner-stats,.yellow-card-stats,.red-card-stats{
+    display: flex;
+    justify-content: space-between;
+    align-items: top;
+}
+
+.shot-stats button,.fouls-stats button,.tackles-stats button,.injury-stats button,.corner-stats button,.yellow-card-stats button,.red-card-stats button{
+    background-color: white;
+    color: black;
+    border: none;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 5px 15px;
+    border-radius: 35px;
+}
+
+.shot-stats button:active,.fouls-stats button:active,.tackles-stats button:active,.injury-stats button:active,.corner-stats button:active,.yellow-card-stats button:active,.red-card-stats button:active{ 
+    background-color: rgba(161, 161, 161, 0.637);
 }

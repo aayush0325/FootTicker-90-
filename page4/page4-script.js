@@ -85,10 +85,6 @@ gameClock = () => {
     displayPossessionPercentB.textContent = `${possessionPercentB}`
     let widthOfA = 6*possessionPercentA
     let widthOfB = 6*possessionPercentB
-    if(possessionPercentA === 100){
-        displayPossessionPercentA.style.borderTopRightRadius = '15px'
-        displayPossessionPercentA.style.borderBottomRightRadius = '15px'
-    }
     displayPossessionPercentA.style.width = `${widthOfA}` + 'px'
     displayPossessionPercentB.style.width = `${widthOfB}` + 'px'
     if(seconds === 60)
@@ -115,7 +111,6 @@ start.addEventListener('click', () => {
         gameClockStart();
         canChangeValues = true
     }
-    
 })
 
 function gameClockStop(){
@@ -177,7 +172,6 @@ aGoalsAdd.addEventListener('click', () => {
         goalsByA++;
         displayAGoals.textContent = `${goalsByA}`
     }
-
 })
 
 aGoalsSubtract.addEventListener('click', () => {
