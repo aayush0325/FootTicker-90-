@@ -16,6 +16,19 @@ teamAHTML.textContent = `${teamAName}`
 teamBHTML.textContent = `${teamBName}`
 //finished changing team titles
 
+//lineups
+for(let i = 0 ; i < teamSize ; i++){
+    const lineupA = document.querySelector('.team-a-lineup ul')
+    const lineupB = document.querySelector('.team-b-lineup ul')
+    let listItemA = document.createElement('li')
+    listItemA.innerText = `${i+1}. ${teamAPlayersArray[i]}`
+    lineupA.appendChild(listItemA)
+    let listItemB = document.createElement('li')
+    listItemB.innerText = `${i+1}. ${teamBPlayersArray[i]}`
+    lineupB.appendChild(listItemB)
+}
+//lineups ended
+
 //possession functionality + clock functionality
 let timeWithBallA = 0
 let timeWithBallB = 0
@@ -261,3 +274,5 @@ reset.addEventListener('click',() =>{
     liA.innerHTML = ""
     liB.innerHTML = ""
 })
+
+

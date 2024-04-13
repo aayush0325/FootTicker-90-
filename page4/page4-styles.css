@@ -129,6 +129,7 @@ body {
 
 .stats{
     margin-top: 2.5%;
+    margin-bottom: 5%;
 }
 
 .possession-stats h4{
@@ -259,4 +260,27 @@ body {
 
 .shot-stats button:active,.fouls-stats button:active,.tackles-stats button:active,.injury-stats button:active,.corner-stats button:active,.yellow-card-stats button:active,.red-card-stats button:active{ 
     background-color: rgba(161, 161, 161, 0.637);
+}
+
+.lineups-list{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.lineups-list ul{
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 60px;
+    padding-right: 60px;
+    font-weight: bold;
+    font-size: larger;
+}
+
+.lineups-list ul li{
+    margin-top: 15%;
+    margin-bottom: 15%;
 }
