@@ -69,14 +69,6 @@ let seconds = 0;
 let timer = null
 
 gameClock = () => {
-    if(goalsByA<0){
-        goalsByA = 0
-        displayAGoals.textContent = `${goalsByA}`
-    }
-    if(goalsByB<0){
-        goalsByB = 0;
-        displayBGoals.textContent = `${goalsByB}`
-    }
     if(hasTheBallA){
         timeWithBallA++;
     }
@@ -187,25 +179,9 @@ aGoalsAdd.addEventListener('click', () => {
     }
 })
 
-aGoalsSubtract.addEventListener('click', () => {
-    if(canChangeValues && hasTheBallA)
-    {
-        goalsByA--;
-        displayAGoals.textContent = `${goalsByA}`
-    }
-})
-
 bGoalsAdd.addEventListener('click', () => {
     if(canChangeValues && hasTheBallB){
         goalsByB++;
-        displayBGoals.textContent = `${goalsByB}`
-    }
-})
-
-bGoalsSubtract.addEventListener('click', () => {
-    if(canChangeValues && hasTheBallB)
-    {
-        goalsByB--;
         displayBGoals.textContent = `${goalsByB}`
     }
 })
@@ -224,9 +200,6 @@ let timesGoalScoredA = []
 let goalScorersB = []
 let timesGoalScoredB = []
 
-
-
-// Function to create a pop-up window with player buttons
 function createPlayerSelectionPopup(players, goalScorerArr, timeArr, goalScorersList) {
     const popup = document.createElement('div');
     const heading = document.createElement('h1');
@@ -243,8 +216,6 @@ function createPlayerSelectionPopup(players, goalScorerArr, timeArr, goalScorers
             timeArr.push(minutes + 1)
             console.log(players, goalScorerArr, timeArr)
             popup.remove();
-
-            // Update the goal scorers list in the corresponding team
             const displayList = goalScorersList.querySelector('ul');
             const listItem = document.createElement('li');
             listItem.textContent = `${players[i]} ${minutes+1}'`;
@@ -267,6 +238,31 @@ bGoalsAdd.addEventListener('click', () => {
     }
 });
 
+aGoalsSubtract.addEventListener('click', () => {
+    if (canChangeValues && goalsByA > 0) {
+        goalsByA--;
+        displayAGoals.textContent = `${goalsByA}`;
+        if (goalScorersA.length > 0) {
+            goalScorersA.pop();
+            timesGoalScoredA.pop();
+            const displayList = document.querySelector('.team-a-goalscorers ul');
+            displayList.removeChild(displayList.lastChild);
+        }
+    }
+});
+
+bGoalsSubtract.addEventListener('click', () => {
+    if (canChangeValues && goalsByB > 0) {
+        goalsByB--;
+        displayBGoals.textContent = `${goalsByB}`;
+        if (goalScorersB.length > 0) {
+            goalScorersB.pop();
+            timesGoalScoredB.pop();
+            const displayList = document.querySelector('.team-b-goalscorers ul');
+            displayList.removeChild(displayList.lastChild);
+        }
+    }
+});
 
 reset.addEventListener('click',() =>{
     const liA = document.querySelector('.team-a-goalscorers ul')
@@ -276,3 +272,305 @@ reset.addEventListener('click',() =>{
 })
 
 
+const displayAShots = document.querySelector('.team-a-shots h4')
+const displayBShots = document.querySelector('.team-b-shots h4')
+const aShotsAdd = document.querySelector('.a-shots-plus')
+const aShotsSubtract = document.querySelector('.a-shots-minus')
+const bShotsAdd = document.querySelector('.b-shots-plus')
+const bShotsSubtract = document.querySelector('.b-shots-minus')
+let shotsByA = 0
+let shotsByB = 0
+
+aShotsAdd.addEventListener('click', () => {
+    if(canChangeValues && hasTheBallA){
+        shotsByA++
+        displayAShots.innerText = `${shotsByA}`    
+    }
+})
+
+aShotsSubtract.addEventListener('click', () => {
+    if(shotsByA>0 && canChangeValues){
+        shotsByA--
+        displayAShots.innerText = `${shotsByA}`
+    }
+})
+
+bShotsAdd.addEventListener('click', () => {
+    if(canChangeValues && hasTheBallB){
+        shotsByB++
+        displayBShots.innerText = `${shotsByB}`
+    }
+})
+
+bShotsSubtract.addEventListener('click', () => {
+    if(shotsByB>0 && canChangeValues){
+        shotsByB--
+        displayBShots.innerText = `${shotsByB}`
+    }
+})
+
+
+const displayACorners = document.querySelector('.team-a-corners h4')
+const displayBCorners = document.querySelector('.team-b-corners h4')
+const aCornersAdd = document.querySelector('.a-corners-add')
+const aCornersSubtract = document.querySelector('.a-corners-subtract')
+const bCornersAdd = document.querySelector('.b-corners-add')
+const bCornersSubtract = document.querySelector('.b-corners-subtract')
+let cornersByA = 0
+let cornersByB = 0
+
+aCornersAdd.addEventListener('click', () => {
+    if(canChangeValues){
+        cornersByA++
+        displayACorners.innerText = `${cornersByA}`
+    }
+})
+
+aCornersSubtract.addEventListener('click', () => {
+    if(canChangeValues && cornersByA >0){
+        cornersByA--
+        displayACorners.innerText = `${cornersByA}`
+    }
+})
+
+bCornersAdd.addEventListener('click', () => {
+    if(canChangeValues){
+        cornersByB++
+        displayBCorners.innerText = `${cornersByB}`
+    }
+})
+
+bCornersSubtract.addEventListener('click', () => {
+    if(canChangeValues && cornersByB >0){
+        cornersByB--
+        displayBCorners.innerText = `${cornersByB}`
+    }
+})
+
+const displayAFouls = document.querySelector('.team-a-fouls h4');
+const displayBFouls = document.querySelector('.team-b-fouls h4');
+const aFoulsAdd = document.querySelector('.a-fouls-add');
+const aFoulsSubtract = document.querySelector('.a-fouls-subtract');
+const bFoulsAdd = document.querySelector('.b-fouls-add');
+const bFoulsSubtract = document.querySelector('.b-fouls-subtract');
+let foulsByA = 0;
+let foulsByB = 0;
+
+aFoulsAdd.addEventListener('click', () => {
+    if (canChangeValues) {
+        foulsByA++;
+        displayAFouls.innerText = `${foulsByA}`;
+    }
+});
+
+aFoulsSubtract.addEventListener('click', () => {
+    if (canChangeValues && foulsByA > 0) {
+        foulsByA--;
+        displayAFouls.innerText = `${foulsByA}`;
+    }
+});
+
+bFoulsAdd.addEventListener('click', () => {
+    if (canChangeValues) {
+        foulsByB++;
+        displayBFouls.innerText = `${foulsByB}`;
+    }
+});
+
+bFoulsSubtract.addEventListener('click', () => {
+    if (canChangeValues && foulsByB > 0) {
+        foulsByB--;
+        displayBFouls.innerText = `${foulsByB}`;
+    }
+});
+
+
+const displayATackles = document.querySelector('.team-a-tackles h4');
+const displayBTackles = document.querySelector('.team-b-tackles h4');
+const aTacklesAdd = document.querySelector('.a-tackles-add');
+const aTacklesSubtract = document.querySelector('.a-tackles-subtract');
+const bTacklesAdd = document.querySelector('.b-tackles-add');
+const bTacklesSubtract = document.querySelector('.b-tackles-subtract');
+let tacklesByA = 0;
+let tacklesByB = 0;
+
+aTacklesAdd.addEventListener('click', () => {
+    if (canChangeValues) {
+        tacklesByA++;
+        displayATackles.innerText = `${tacklesByA}`;
+    }
+});
+
+aTacklesSubtract.addEventListener('click', () => {
+    if (canChangeValues && tacklesByA > 0) {
+        tacklesByA--;
+        displayATackles.innerText = `${tacklesByA}`;
+    }
+});
+
+bTacklesAdd.addEventListener('click', () => {
+    if (canChangeValues) {
+        tacklesByB++;
+        displayBTackles.innerText = `${tacklesByB}`;
+    }
+});
+
+bTacklesSubtract.addEventListener('click', () => {
+    if (canChangeValues && tacklesByB > 0) {
+        tacklesByB--;
+        displayBTackles.innerText = `${tacklesByB}`;
+    }
+});
+
+
+const displayAInjuries = document.querySelector('.team-a-injuries h4');
+const displayBInjuries = document.querySelector('.team-b-injury h4');
+const aInjuriesAdd = document.querySelector('.a-injury-add');
+const aInjuriesSubtract = document.querySelector('.a-injury-subtract');
+const bInjuriesAdd = document.querySelector('.b-injury-add');
+const bInjuriesSubtract = document.querySelector('.b-injury-subtract');
+let injuriesByA = 0;
+let injuriesByB = 0;
+
+aInjuriesAdd.addEventListener('click', () => {
+    if (canChangeValues) {
+        injuriesByA++;
+        displayAInjuries.innerText = `${injuriesByA}`;
+    }
+});
+
+aInjuriesSubtract.addEventListener('click', () => {
+    if (canChangeValues && injuriesByA > 0) {
+        injuriesByA--;
+        displayAInjuries.innerText = `${injuriesByA}`;
+    }
+});
+
+bInjuriesAdd.addEventListener('click', () => {
+    if (canChangeValues) {
+        injuriesByB++;
+        displayBInjuries.innerText = `${injuriesByB}`;
+    }
+});
+
+bInjuriesSubtract.addEventListener('click', () => {
+    if (canChangeValues && injuriesByB > 0) {
+        injuriesByB--;
+        displayBInjuries.innerText = `${injuriesByB}`;
+    }
+});
+
+const displayAYellowCards = document.querySelector('.team-a-yellow-cards h4');
+const displayBYellowCards = document.querySelector('.team-b-yellow-cards h4');
+const aYellowCardsAdd = document.querySelector('.a-yc-add');
+const aYellowCardsSubtract = document.querySelector('.a-yc-subtract');
+const bYellowCardsAdd = document.querySelector('.b-yc-add');
+const bYellowCardsSubtract = document.querySelector('.b-yc-subtract');
+let yellowCardsByA = 0;
+let yellowCardsByB = 0;
+
+aYellowCardsAdd.addEventListener('click', () => {
+    if (canChangeValues) {
+        yellowCardsByA++;
+        displayAYellowCards.innerText = `${yellowCardsByA}`;
+    }
+});
+
+aYellowCardsSubtract.addEventListener('click', () => {
+    if (canChangeValues && yellowCardsByA > 0) {
+        yellowCardsByA--;
+        displayAYellowCards.innerText = `${yellowCardsByA}`;
+    }
+});
+
+bYellowCardsAdd.addEventListener('click', () => {
+    if (canChangeValues) {
+        yellowCardsByB++;
+        displayBYellowCards.innerText = `${yellowCardsByB}`;
+    }
+});
+
+bYellowCardsSubtract.addEventListener('click', () => {
+    if (canChangeValues && yellowCardsByB > 0) {
+        yellowCardsByB--;
+        displayBYellowCards.innerText = `${yellowCardsByB}`;
+    }
+});
+
+
+const displayARedCards = document.querySelector('.team-a-red-cards h4');
+const displayBRedCards = document.querySelector('.team-b-red-cards h4');
+const aRedCardsAdd = document.querySelector('.a-rc-add');
+const aRedCardsSubtract = document.querySelector('.a-rc-subtract');
+const bRedCardsAdd = document.querySelector('.b-rc-add');
+const bRedCardsSubtract = document.querySelector('.b-rc-subtract');
+let redCardsByA = 0;
+let redCardsByB = 0;
+
+aRedCardsAdd.addEventListener('click', () => {
+    if (canChangeValues) {
+        redCardsByA++;
+        displayARedCards.innerText = `${redCardsByA}`;
+    }
+});
+
+aRedCardsSubtract.addEventListener('click', () => {
+    if (canChangeValues && redCardsByA > 0) {
+        redCardsByA--;
+        displayARedCards.innerText = `${redCardsByA}`;
+    }
+});
+
+bRedCardsAdd.addEventListener('click', () => {
+    if (canChangeValues) {
+        redCardsByB++;
+        displayBRedCards.innerText = `${redCardsByB}`;
+    }
+});
+
+bRedCardsSubtract.addEventListener('click', () => {
+    if (canChangeValues && redCardsByB > 0) {
+        redCardsByB--;
+        displayBRedCards.innerText = `${redCardsByB}`;
+    }
+});
+
+const resetButton = document.querySelector('.reset');
+
+resetButton.addEventListener('click', () => {
+    // Reset shots
+    shotsByA = 0;
+    shotsByB = 0;
+    displayAShots.innerText = '0';
+    displayBShots.innerText = '0';
+
+    cornersByA = 0;
+    cornersByB = 0;
+    displayACorners.innerText = '0';
+    displayBCorners.innerText = '0';
+
+    foulsByA = 0;
+    foulsByB = 0;
+    displayAFouls.innerText = '0';
+    displayBFouls.innerText = '0';
+
+    tacklesByA = 0;
+    tacklesByB = 0;
+    displayATackles.innerText = '0';
+    displayBTackles.innerText = '0';
+
+    injuriesByA = 0;
+    injuriesByB = 0;
+    displayAInjuries.innerText = '0';
+    displayBInjuries.innerText = '0';
+
+    yellowCardsByA = 0;
+    yellowCardsByB = 0;
+    displayAYellowCards.innerText = '0';
+    displayBYellowCards.innerText = '0';
+    
+    redCardsByA = 0;
+    redCardsByB = 0;
+    displayARedCards.innerText = '0';
+    displayBRedCards.innerText = '0';
+});
