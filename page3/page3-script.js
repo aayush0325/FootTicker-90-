@@ -17,13 +17,12 @@ teamAPlayers = new Array(teamSize).fill('')
 teamBPlayers = new Array(teamSize).fill('')
 
 
-// Function to create input elements and handle player name collection
 function createPlayerInputs(teamSize, teamPlayersArray) {
     const teamDiv = document.querySelector('.teams');
     for (let i = 0; i < teamSize; i++) {
         const input = document.createElement('input');
-        input.style.margin = '10px 50px 10px 50px'; // Adding margin
-        input.style.fontSize = '20px'; // Setting font size
+        input.style.margin = '10px 50px 10px 50px'; 
+        input.style.fontSize = '20px'; 
         input.style.borderRadius = '30px'
         input.style.padding = '5px 10px 5px 10px'
         input.setAttribute('type', 'text');
@@ -34,13 +33,8 @@ function createPlayerInputs(teamSize, teamPlayersArray) {
     }
 }
 
-// Create input elements for Team A
 createPlayerInputs(teamSize, teamAPlayers);
-
-// Create input elements for Team B
 createPlayerInputs(teamSize, teamBPlayers);
-
-
 
 const inputA = document.querySelectorAll('.team1 input')
 for(let i = 0 ; i < teamSize ; i++)
@@ -63,6 +57,9 @@ for(let i = 0 ; i < teamSize ; i++)
     });
 }
 
-
-
-
+document.addEventListener("DOMContentLoaded", function() {
+    const playButton = document.querySelector(".play");
+    playButton.addEventListener("click", function() {
+        window.location.href = "../page4/page4.html";
+    });
+});

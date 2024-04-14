@@ -70,8 +70,21 @@ let timer = null
 
 gameClock = () => {
 
-    if (minutes === matchLength && seconds === 0) { // Check if the current time matches the match length
-        gameClockStop(); // Stop the clock
+    if (minutes === matchLength && seconds === 0) {
+        gameClockStop();
+        const backButton = document.createElement('button');
+        backButton.textContent = 'Return to Home';
+        backButton.classList.add('back-button');
+        backButton.addEventListener('click', () => {
+            window.location.href = "../index.html";
+        });
+        const goalScorersDiv = document.querySelector('.goal-scorers');
+        goalScorersDiv.parentNode.insertBefore(backButton, goalScorersDiv);
+        backButton.style.display = 'block';
+        backButton.style.margin = 'auto';
+        backButton.style.marginTop = '5%'
+        backButton.style.width = '30%'
+
         return;
     }
     if(hasTheBallA){
