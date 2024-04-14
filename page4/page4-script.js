@@ -69,11 +69,10 @@ let seconds = 0;
 let timer = null
 
 gameClock = () => {
-    if(minutes === matchLength) {
-        gameClockStop()
-        clock.innerHTML = minutes1+1 + ':' + '00';
-        return
-        
+
+    if (minutes === matchLength && seconds === 0) { // Check if the current time matches the match length
+        gameClockStop(); // Stop the clock
+        return;
     }
     if(hasTheBallA){
         timeWithBallA++;
@@ -220,33 +219,11 @@ const bInjuriesAdd = document.querySelector('.b-injury-add');
 let injuriesByA = 0;
 let injuriesByB = 0;
 
-aInjuriesAdd.addEventListener('click', () => {
-    if (canChangeValues) {
-        injuriesByA++;
-        displayAInjuries.innerText = `${injuriesByA}`;
-    }
-});
-
-
-bInjuriesAdd.addEventListener('click', () => {
-    if (canChangeValues) {
-        injuriesByB++;
-        displayBInjuries.innerText = `${injuriesByB}`;
-    }
-});
-
-const displayAYellowCards = document.querySelector('.team-a-yellow-cards h4');
-const displayBYellowCards = document.querySelector('.team-b-yellow-cards h4');
-const aYellowCardsAdd = document.querySelector('.a-yc-add');
-const bYellowCardsAdd = document.querySelector('.b-yc-add');
-let yellowCardsByA = 0;
-let yellowCardsByB = 0;
-
-function yellowCardsFunction(players, checkArray){
+function injuriesFunction(players, checkArray, incrementFunction, decrementFunction){
     const popup = document.createElement('div')
     const heading = document.createElement('h1')
     heading.style.color = 'white'
-    heading.textContent = "Choose who has been given the Red Card";
+    heading.textContent = "Choose the injured player";
     popup.appendChild(heading);
     popup.classList.add('red-card-popup');
     for (let i = 0; i < players.length; i++) {
@@ -254,27 +231,42 @@ function yellowCardsFunction(players, checkArray){
         button.textContent = players[i];
         button.classList.add('player-button');
         button.addEventListener('click', () => {
-            teamAYelllowCardsArray[i]++
+            checkArray[i] = false
             popup.remove();
         });
         if(checkArray[i]){
             popup.appendChild(button);
         }
     }
+    const backButton = document.createElement('button')
+    backButton.textContent = 'Back'
+    backButton.classList.add('back-button')
+    backButton.addEventListener('click', () => {
+        decrementFunction(); // Call the decrement function
+        popup.remove();
+    })
+    popup.appendChild(backButton)
+    document.body.appendChild(popup);
 }
 
-aYellowCardsAdd.addEventListener('click', () => {
-    if (canChangeValues) {
-        yellowCardsByA++;
-        displayAYellowCards.innerText = `${yellowCardsByA}`;
-    }
+aInjuriesAdd.addEventListener('click', () => {
+        displayAInjuries.innerText = `${++injuriesByA}`;
+        injuriesFunction(teamAPlayersArray,canDisplayCheckA,() => {}, () => {
+            if(injuriesByA>0){
+                displayAInjuries.innerText = `${--injuriesByA}`;
+            }
+        })
 });
 
 
-bYellowCardsAdd.addEventListener('click', () => {
+bInjuriesAdd.addEventListener('click', () => {
     if (canChangeValues) {
-        yellowCardsByB++;
-        displayBYellowCards.innerText = `${yellowCardsByB}`;
+        displayBInjuries.innerText = `${++injuriesByB}`;
+        injuriesFunction(teamBPlayersArray, canDisplayCheckB, () => {}, () => {
+            if(injuriesByB>0){
+                displayBInjuries.innerText = `${--injuriesByB}`
+            }
+        })
     }
 });
 
