@@ -320,16 +320,16 @@ function createPlayerSelectionPopup(players, goalScorerArr, timeArr, goalScorers
         button.textContent = players[i];
         button.classList.add('player-button');
         button.addEventListener('click', () => {
-            goalScorerArr.push(players[i])
-            timeArr.push(minutes + 1)
-            console.log(players, goalScorerArr, timeArr)
+            goalScorerArr.push(players[i]);
+            timeArr.push(minutes + 1);
+            console.log(players, goalScorerArr, timeArr);
             popup.remove();
             const displayList = goalScorersList.querySelector('ul');
             const listItem = document.createElement('li');
             listItem.textContent = `${players[i]} ${minutes+1}'`;
             displayList.appendChild(listItem);
         });
-        if(checkArray1[i]){
+        if (checkArray1[i]) {
             popup.appendChild(button);
         }
     }
@@ -338,15 +338,16 @@ function createPlayerSelectionPopup(players, goalScorerArr, timeArr, goalScorers
 
 aGoalsAdd.addEventListener('click', () => {
     if (canChangeValues && hasTheBallA) {
-        createPlayerSelectionPopup(teamAPlayersArray, goalScorersA, timesGoalScoredA, document.querySelector('.team-a-goalscorers',canDisplayCheckA));
+        createPlayerSelectionPopup(teamAPlayersArray, goalScorersA, timesGoalScoredA, document.querySelector('.team-a-goalscorers'), canDisplayCheckA);
     }
 });
 
 bGoalsAdd.addEventListener('click', () => {
     if (canChangeValues && hasTheBallB) {
-        createPlayerSelectionPopup(teamBPlayersArray, goalScorersB, timesGoalScoredB, document.querySelector('.team-b-goalscorers',canDisplayCheckB));
+        createPlayerSelectionPopup(teamBPlayersArray, goalScorersB, timesGoalScoredB, document.querySelector('.team-b-goalscorers'), canDisplayCheckB);
     }
 });
+
 
 aGoalsSubtract.addEventListener('click', () => {
     if (canChangeValues && goalsByA > 0) {
