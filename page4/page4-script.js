@@ -285,7 +285,7 @@ const bRedCardsAdd = document.querySelector('.b-rc-add');
 let redCardsByA = 0;
 let redCardsByB = 0;
 
-function redCardsFuntion(players, checkArray){
+function redCardsFuntion(players, checkArray, incrementFunction, decrementFunction){
     const popup = document.createElement('div')
     const heading = document.createElement('h1')
     heading.style.color = 'white'
@@ -308,6 +308,7 @@ function redCardsFuntion(players, checkArray){
     backButton.textContent = 'Back'
     backButton.classList.add('back-button')
     backButton.addEventListener('click', () => {
+        decrementFunction(); // Call the decrement function
         popup.remove();
     })
     popup.appendChild(backButton)
@@ -316,17 +317,25 @@ function redCardsFuntion(players, checkArray){
 
 aRedCardsAdd.addEventListener('click', () => {
     if (canChangeValues) {
-        redCardsByA++;
-        displayARedCards.innerText = `${redCardsByA}`;
-        redCardsFuntion(teamAPlayersArray,canDisplayCheckA)
+        displayARedCards.innerText = `${++redCardsByA}`;
+        redCardsFuntion(teamAPlayersArray, canDisplayCheckA, () => {}, () => {
+            // Decrement function
+            if (redCardsByA > 0) {
+                displayARedCards.innerText = `${--redCardsByA}`;
+            }
+        });
     }
 });
 
 bRedCardsAdd.addEventListener('click', () => {
     if (canChangeValues) {
-        redCardsByB++;
-        displayBRedCards.innerText = `${redCardsByB}`;
-        redCardsFuntion(teamBPlayersArray,canDisplayCheckB)
+        displayBRedCards.innerText = `${++redCardsByB}`;
+        redCardsFuntion(teamBPlayersArray, canDisplayCheckB, () => {}, () => {
+            // Decrement function
+            if (redCardsByB > 0) {
+                displayBRedCards.innerText = `${--redCardsByB}`;
+            }
+        });
     }
 });
 
