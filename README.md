@@ -10,4 +10,4 @@ the feature i am most excited to present is the dynamic possession bar which upd
 
 
 
-this project has helped me understand browser localstorage, events in javascript and dom manipulation using js. working with a vast amount of variables across files was a great learning experience for me and i look forward to the challenges ahead in my tech journey
+this project has helped me understand browser localstorage, events in javascript and dom manipulation using js. working with a vast amount of variables across files was a great learning experience for me and i look forward to the challenges ahead in my tech journey :)
