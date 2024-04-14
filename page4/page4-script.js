@@ -242,6 +242,27 @@ const bYellowCardsAdd = document.querySelector('.b-yc-add');
 let yellowCardsByA = 0;
 let yellowCardsByB = 0;
 
+function yellowCardsFunction(players, checkArray){
+    const popup = document.createElement('div')
+    const heading = document.createElement('h1')
+    heading.style.color = 'white'
+    heading.textContent = "Choose who has been given the Red Card";
+    popup.appendChild(heading);
+    popup.classList.add('red-card-popup');
+    for (let i = 0; i < players.length; i++) {
+        const button = document.createElement('button');
+        button.textContent = players[i];
+        button.classList.add('player-button');
+        button.addEventListener('click', () => {
+            teamAYelllowCardsArray[i]++
+            popup.remove();
+        });
+        if(checkArray[i]){
+            popup.appendChild(button);
+        }
+    }
+}
+
 aYellowCardsAdd.addEventListener('click', () => {
     if (canChangeValues) {
         yellowCardsByA++;
@@ -285,10 +306,11 @@ function redCardsFuntion(players, checkArray){
     }
     const backButton = document.createElement('button')
     backButton.textContent = 'Back'
-    backButton.classList.add('player-button')
+    backButton.classList.add('back-button')
     backButton.addEventListener('click', () => {
         popup.remove();
     })
+    popup.appendChild(backButton)
     document.body.appendChild(popup);
 }
 
