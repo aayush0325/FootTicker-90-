@@ -69,6 +69,12 @@ let seconds = 0;
 let timer = null
 
 gameClock = () => {
+    if(minutes === matchLength) {
+        gameClockStop()
+        clock.innerHTML = minutes1+1 + ':' + '00';
+        return
+        
+    }
     if(hasTheBallA){
         timeWithBallA++;
     }
@@ -200,7 +206,109 @@ let timesGoalScoredA = []
 let goalScorersB = []
 let timesGoalScoredB = []
 
-function createPlayerSelectionPopup(players, goalScorerArr, timeArr, goalScorersList) {
+let teamAYelllowCardsArray = Array(teamSize).fill(0)
+let teamBYelllowCardsArray = Array(teamSize).fill(0)
+let canDisplayCheckA = Array(teamSize).fill(true)
+let canDisplayCheckB = Array(teamSize).fill(true)
+
+
+
+const displayAInjuries = document.querySelector('.team-a-injuries h4');
+const displayBInjuries = document.querySelector('.team-b-injury h4');
+const aInjuriesAdd = document.querySelector('.a-injury-add');
+const bInjuriesAdd = document.querySelector('.b-injury-add');
+let injuriesByA = 0;
+let injuriesByB = 0;
+
+aInjuriesAdd.addEventListener('click', () => {
+    if (canChangeValues) {
+        injuriesByA++;
+        displayAInjuries.innerText = `${injuriesByA}`;
+    }
+});
+
+
+bInjuriesAdd.addEventListener('click', () => {
+    if (canChangeValues) {
+        injuriesByB++;
+        displayBInjuries.innerText = `${injuriesByB}`;
+    }
+});
+
+const displayAYellowCards = document.querySelector('.team-a-yellow-cards h4');
+const displayBYellowCards = document.querySelector('.team-b-yellow-cards h4');
+const aYellowCardsAdd = document.querySelector('.a-yc-add');
+const bYellowCardsAdd = document.querySelector('.b-yc-add');
+let yellowCardsByA = 0;
+let yellowCardsByB = 0;
+
+aYellowCardsAdd.addEventListener('click', () => {
+    if (canChangeValues) {
+        yellowCardsByA++;
+        displayAYellowCards.innerText = `${yellowCardsByA}`;
+    }
+});
+
+
+bYellowCardsAdd.addEventListener('click', () => {
+    if (canChangeValues) {
+        yellowCardsByB++;
+        displayBYellowCards.innerText = `${yellowCardsByB}`;
+    }
+});
+
+const displayARedCards = document.querySelector('.team-a-red-cards h4');
+const displayBRedCards = document.querySelector('.team-b-red-cards h4');
+const aRedCardsAdd = document.querySelector('.a-rc-add');
+const bRedCardsAdd = document.querySelector('.b-rc-add');
+let redCardsByA = 0;
+let redCardsByB = 0;
+
+function redCardsFuntion(players, checkArray){
+    const popup = document.createElement('div')
+    const heading = document.createElement('h1')
+    heading.style.color = 'white'
+    heading.textContent = "Choose who has been given the Red Card";
+    popup.appendChild(heading);
+    popup.classList.add('red-card-popup');
+    for (let i = 0; i < players.length; i++) {
+        const button = document.createElement('button');
+        button.textContent = players[i];
+        button.classList.add('player-button');
+        button.addEventListener('click', () => {
+            checkArray[i] = false
+            popup.remove();
+        });
+        if(checkArray[i]){
+            popup.appendChild(button);
+        }
+    }
+    const backButton = document.createElement('button')
+    backButton.textContent = 'Back'
+    backButton.classList.add('player-button')
+    backButton.addEventListener('click', () => {
+        popup.remove();
+    })
+    document.body.appendChild(popup);
+}
+
+aRedCardsAdd.addEventListener('click', () => {
+    if (canChangeValues) {
+        redCardsByA++;
+        displayARedCards.innerText = `${redCardsByA}`;
+        redCardsFuntion(teamAPlayersArray,canDisplayCheckA)
+    }
+});
+
+bRedCardsAdd.addEventListener('click', () => {
+    if (canChangeValues) {
+        redCardsByB++;
+        displayBRedCards.innerText = `${redCardsByB}`;
+        redCardsFuntion(teamBPlayersArray,canDisplayCheckB)
+    }
+});
+
+function createPlayerSelectionPopup(players, goalScorerArr, timeArr, goalScorersList, checkArray1) {
     const popup = document.createElement('div');
     const heading = document.createElement('h1');
     heading.style.color = 'white'
@@ -221,20 +329,22 @@ function createPlayerSelectionPopup(players, goalScorerArr, timeArr, goalScorers
             listItem.textContent = `${players[i]} ${minutes+1}'`;
             displayList.appendChild(listItem);
         });
-        popup.appendChild(button);
+        if(checkArray1[i]){
+            popup.appendChild(button);
+        }
     }
     document.body.appendChild(popup);
 }
 
 aGoalsAdd.addEventListener('click', () => {
     if (canChangeValues && hasTheBallA) {
-        createPlayerSelectionPopup(teamAPlayersArray, goalScorersA, timesGoalScoredA, document.querySelector('.team-a-goalscorers'));
+        createPlayerSelectionPopup(teamAPlayersArray, goalScorersA, timesGoalScoredA, document.querySelector('.team-a-goalscorers',canDisplayCheckA));
     }
 });
 
 bGoalsAdd.addEventListener('click', () => {
     if (canChangeValues && hasTheBallB) {
-        createPlayerSelectionPopup(teamBPlayersArray, goalScorersB, timesGoalScoredB, document.querySelector('.team-b-goalscorers'));
+        createPlayerSelectionPopup(teamBPlayersArray, goalScorersB, timesGoalScoredB, document.querySelector('.team-b-goalscorers',canDisplayCheckB));
     }
 });
 
@@ -372,7 +482,7 @@ aFoulsSubtract.addEventListener('click', () => {
 
 bFoulsAdd.addEventListener('click', () => {
     if (canChangeValues) {
-        foulsByB++;
+        foulsByB++; 
         displayBFouls.innerText = `${foulsByB}`;
     }
 });
@@ -423,122 +533,7 @@ bTacklesSubtract.addEventListener('click', () => {
 });
 
 
-const displayAInjuries = document.querySelector('.team-a-injuries h4');
-const displayBInjuries = document.querySelector('.team-b-injury h4');
-const aInjuriesAdd = document.querySelector('.a-injury-add');
-const aInjuriesSubtract = document.querySelector('.a-injury-subtract');
-const bInjuriesAdd = document.querySelector('.b-injury-add');
-const bInjuriesSubtract = document.querySelector('.b-injury-subtract');
-let injuriesByA = 0;
-let injuriesByB = 0;
-
-aInjuriesAdd.addEventListener('click', () => {
-    if (canChangeValues) {
-        injuriesByA++;
-        displayAInjuries.innerText = `${injuriesByA}`;
-    }
-});
-
-aInjuriesSubtract.addEventListener('click', () => {
-    if (canChangeValues && injuriesByA > 0) {
-        injuriesByA--;
-        displayAInjuries.innerText = `${injuriesByA}`;
-    }
-});
-
-bInjuriesAdd.addEventListener('click', () => {
-    if (canChangeValues) {
-        injuriesByB++;
-        displayBInjuries.innerText = `${injuriesByB}`;
-    }
-});
-
-bInjuriesSubtract.addEventListener('click', () => {
-    if (canChangeValues && injuriesByB > 0) {
-        injuriesByB--;
-        displayBInjuries.innerText = `${injuriesByB}`;
-    }
-});
-
-const displayAYellowCards = document.querySelector('.team-a-yellow-cards h4');
-const displayBYellowCards = document.querySelector('.team-b-yellow-cards h4');
-const aYellowCardsAdd = document.querySelector('.a-yc-add');
-const aYellowCardsSubtract = document.querySelector('.a-yc-subtract');
-const bYellowCardsAdd = document.querySelector('.b-yc-add');
-const bYellowCardsSubtract = document.querySelector('.b-yc-subtract');
-let yellowCardsByA = 0;
-let yellowCardsByB = 0;
-
-aYellowCardsAdd.addEventListener('click', () => {
-    if (canChangeValues) {
-        yellowCardsByA++;
-        displayAYellowCards.innerText = `${yellowCardsByA}`;
-    }
-});
-
-aYellowCardsSubtract.addEventListener('click', () => {
-    if (canChangeValues && yellowCardsByA > 0) {
-        yellowCardsByA--;
-        displayAYellowCards.innerText = `${yellowCardsByA}`;
-    }
-});
-
-bYellowCardsAdd.addEventListener('click', () => {
-    if (canChangeValues) {
-        yellowCardsByB++;
-        displayBYellowCards.innerText = `${yellowCardsByB}`;
-    }
-});
-
-bYellowCardsSubtract.addEventListener('click', () => {
-    if (canChangeValues && yellowCardsByB > 0) {
-        yellowCardsByB--;
-        displayBYellowCards.innerText = `${yellowCardsByB}`;
-    }
-});
-
-
-const displayARedCards = document.querySelector('.team-a-red-cards h4');
-const displayBRedCards = document.querySelector('.team-b-red-cards h4');
-const aRedCardsAdd = document.querySelector('.a-rc-add');
-const aRedCardsSubtract = document.querySelector('.a-rc-subtract');
-const bRedCardsAdd = document.querySelector('.b-rc-add');
-const bRedCardsSubtract = document.querySelector('.b-rc-subtract');
-let redCardsByA = 0;
-let redCardsByB = 0;
-
-aRedCardsAdd.addEventListener('click', () => {
-    if (canChangeValues) {
-        redCardsByA++;
-        displayARedCards.innerText = `${redCardsByA}`;
-    }
-});
-
-aRedCardsSubtract.addEventListener('click', () => {
-    if (canChangeValues && redCardsByA > 0) {
-        redCardsByA--;
-        displayARedCards.innerText = `${redCardsByA}`;
-    }
-});
-
-bRedCardsAdd.addEventListener('click', () => {
-    if (canChangeValues) {
-        redCardsByB++;
-        displayBRedCards.innerText = `${redCardsByB}`;
-    }
-});
-
-bRedCardsSubtract.addEventListener('click', () => {
-    if (canChangeValues && redCardsByB > 0) {
-        redCardsByB--;
-        displayBRedCards.innerText = `${redCardsByB}`;
-    }
-});
-
-const resetButton = document.querySelector('.reset');
-
-resetButton.addEventListener('click', () => {
-    // Reset shots
+reset.addEventListener('click', () => {
     shotsByA = 0;
     shotsByB = 0;
     displayAShots.innerText = '0';
@@ -568,9 +563,10 @@ resetButton.addEventListener('click', () => {
     yellowCardsByB = 0;
     displayAYellowCards.innerText = '0';
     displayBYellowCards.innerText = '0';
-    
+
     redCardsByA = 0;
     redCardsByB = 0;
     displayARedCards.innerText = '0';
     displayBRedCards.innerText = '0';
 });
+

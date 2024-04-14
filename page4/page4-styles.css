@@ -284,3 +284,29 @@ body {
     margin-top: 20px;
     margin-bottom: 20px;
 }
+
+.team-a-red-cards,.team-a-yellow-cards,.team-a-injuries{
+    margin-left: 20px;
+}
+
+.team-b-red-cards,.team-b-yellow-cards,.team-b-injury{
+    margin-right: 20px;
+}
+
+
+.red-card-popup{
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top: 50%;
+    left: 50%;
+    height: 100%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    z-index: 9999;
+    width: 90%;
+}
