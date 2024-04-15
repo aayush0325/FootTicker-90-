@@ -69,6 +69,7 @@ let seconds = 0;
 let timer = null
 
 gameClock = () => {
+    
 
     if (minutes === matchLength && seconds === 0) {
         gameClockStop();
@@ -232,7 +233,7 @@ const bInjuriesAdd = document.querySelector('.b-injury-add');
 let injuriesByA = 0;
 let injuriesByB = 0;
 
-function injuriesFunction(players, checkArray, incrementFunction, decrementFunction){
+function injuriesFunction(players, checkArray, incrementFunction, decrementFunction,displayList){
     const popup = document.createElement('div')
     const heading = document.createElement('h1')
     heading.style.color = 'white'
@@ -245,6 +246,9 @@ function injuriesFunction(players, checkArray, incrementFunction, decrementFunct
         button.classList.add('player-button');
         button.addEventListener('click', () => {
             checkArray[i] = false
+            const listItem = document.createElement('li');
+            listItem.textContent = `${players[i]} ${minutes+1}' (injury)`;
+            displayList.appendChild(listItem);
             popup.remove();
         });
         if(checkArray[i]){
@@ -268,7 +272,7 @@ aInjuriesAdd.addEventListener('click', () => {
             if(injuriesByA>0){
                 displayAInjuries.innerText = `${--injuriesByA}`;
             }
-        })
+        }, document.querySelector('.team-a-goalscorers ul'))
 });
 
 
@@ -279,7 +283,7 @@ bInjuriesAdd.addEventListener('click', () => {
             if(injuriesByB>0){
                 displayBInjuries.innerText = `${--injuriesByB}`
             }
-        })
+        }, document.querySelector('.team-b-goalscorers ul'))
     }
 });
 
@@ -290,7 +294,7 @@ const bRedCardsAdd = document.querySelector('.b-rc-add');
 let redCardsByA = 0;
 let redCardsByB = 0;
 
-function redCardsFuntion(players, checkArray, incrementFunction, decrementFunction){
+function redCardsFuntion(players, checkArray, incrementFunction, decrementFunction,displayList){
     const popup = document.createElement('div')
     const heading = document.createElement('h1')
     heading.style.color = 'white'
@@ -304,10 +308,14 @@ function redCardsFuntion(players, checkArray, incrementFunction, decrementFuncti
         button.addEventListener('click', () => {
             checkArray[i] = false
             popup.remove();
+            const listItem = document.createElement('li');
+            listItem.textContent = `${players[i]} ${minutes+1}' (red card)`;
+            displayList.appendChild(listItem);
         });
         if(checkArray[i]){
             popup.appendChild(button);
         }
+
     }
     const backButton = document.createElement('button')
     backButton.textContent = 'Back'
@@ -328,7 +336,7 @@ aRedCardsAdd.addEventListener('click', () => {
             if (redCardsByA > 0) {
                 displayARedCards.innerText = `${--redCardsByA}`;
             }
-        });
+        }, document.querySelector('.team-a-goalscorers ul'));
     }
 });
 
@@ -340,7 +348,7 @@ bRedCardsAdd.addEventListener('click', () => {
             if (redCardsByB > 0) {
                 displayBRedCards.innerText = `${--redCardsByB}`;
             }
-        });
+        }, document.querySelector('.team-b-goalscorers ul'));
     }
 });
 
@@ -362,7 +370,7 @@ function createPlayerSelectionPopup(players, goalScorerArr, timeArr, goalScorers
             popup.remove();
             const displayList = goalScorersList.querySelector('ul');
             const listItem = document.createElement('li');
-            listItem.textContent = `${players[i]} ${minutes+1}'`;
+            listItem.textContent = `${players[i]} ${minutes+1}' (goal)`;
             displayList.appendChild(listItem);
         });
         if (checkArray1[i]) {
@@ -403,7 +411,7 @@ bGoalsSubtract.addEventListener('click', () => {
         goalsByB--;
         displayBGoals.textContent = `${goalsByB}`;
         if (goalScorersB.length > 0) {
-            goalScorersB.pop();
+            goalScorersB.pop(); 
             timesGoalScoredB.pop();
             const displayList = document.querySelector('.team-b-goalscorers ul');
             displayList.removeChild(displayList.lastChild);
